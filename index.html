@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhyudaya 2026 | Legacy of Excellence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e85a24;
+            --secondary: #f7931e;
+            --accent: #4cc9f0;
+            --dark: #0f172a;
+            --dark-soft: #1e293b;
+            --topred:red;
+            --light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-fire: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Background Elements --- */
+        .blob-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: white;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-style: italic;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- Buttons --- */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-main:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-ghost {
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            color: white;
+            background: transparent;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* --- Global Layout --- */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* --- Glass Cards --- */
+        .glass-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-8px);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .glass-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .glass-card .date {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .event-list {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .event-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+        }
+
+        .event-list li::before {
+            content: '•';
+            color: var(--primary);
+            font-size: 1.5rem;
+            line-height: 0;
+        }
+
+        .card-link {
+            margin-top: auto;
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            color: var(--primary);
+            gap: 0.8rem;
+        }
+        
+        /* Registration Cards - Fixed alignment */
+        .registration-card {
+            text-align: center;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 350px;
+        }
+
+        .registration-card .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .registration-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .registration-card .card-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: auto;
+            flex-grow: 1;
+            padding-bottom: 1.5rem;
+        }
+
+        .registration-card .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* Coordinator Cards specific styling */
+        .coordinator-card {
+            text-align: center;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 280px;
+        }
+        
+        .coordinator-card h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .coordinator-card .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: auto;
+            padding-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .contact-btn {
+            background: rgba(255,255,255,0.05);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-block;
+            margin-top: auto;
+        }
+        
+        .contact-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* --- Registration Section --- */
+        #register {
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+            margin: 2rem auto;
+            border-radius: 30px;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background: #05080f;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            align-items: flex-start;
+        }
+
+        .footer-contact-icon {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .heart {
+            color: var(--primary);
+            display: inline-block;
+            animation: beat 1.5s infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* --- Responsive Queries --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                padding: 2rem;
+                flex-direction: column;
+                text-align: center;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob-bg">
+        <div class="blob"></div>
+    </div>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">ABHYUDAYA</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#events">Events</a></li>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#about">Legacy</a></li>
+                <li><a href="#contact-grid">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">B.K. Mariappa's Hostel Presents</span>
+            <h1><span>ABHYUDAYA</span> 2026</h1>
+            <p>Where athletic excellence meets cultural brilliance. Join us for a century-long tradition of talent, triumph, and celebration.</p>
+            <div class="btn-group">
+                <a href="#register" class="btn btn-main">Register Now</a>
+                <a href="#events" class="btn btn-ghost">View Events</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="events">
+        <div class="section-title">
+            <span style="color:var(--primary); font-weight: 700; letter-spacing: 2px; font-size: 0.9rem;">FESTIVAL HIGHLIGHTS</span>
+            <h2>Event Calendar</h2>
+            <p>Experience the thrill of competition and the beauty of art.</p>
+        </div>
+        <div class="grid">
+            <div class="glass-card" style="border-top: 3px solid var(--topred);">
+                <span class="card-icon">🏆</span>
+                <h3>Sports Events</h3>
+                <span class="date">To be announced soon...</span>
+                <ul class="event-list">
+                    <li>Grandmaster Chess</li>
+                    <li>Pro-Carrom</li>
+                    <li>Badminton Championship</li>
+                </ul>
+                <a href="#" target="_blank" class="card-link">View Venues →</a>
+            </div>
+
+            <div class="glass-card" style="border-top: 3px solid var(--accent);">
+                <span class="card-icon">🎭</span>
+                <h3>Cultural Events</h3>
+                <span class="date" style="color: var(--accent);">To be announced soon...</span>
+                <ul class="event-list">
+                    <li>Janapada & Bhava Geete</li>
+                    <li>Antakshari</li>
+                    <li>Debate & Quiz</li>
+                    <li>Pick and Speak</li>
+                </ul>
+                <a href="https://share.google/qqszUQvKaCuZshgjE" target="_blank" class="card-link">View Venues →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="register">
+        <div class="section-title">
+            <h2>Get Involved</h2>
+            <p>Select your category and sign up today.</p>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="glass-card registration-card">
+                <span class="card-icon">🏃</span>
+                <h3>Sports Registration</h3>
+                <p class="card-description">Chess, Carrom, Badminton</p>
+                <a href="https://forms.gle/X2eGtvHsgR4ujSL66" class="btn btn-main">Register</a>
+            </div>
+            
+            <div class="glass-card registration-card">
+                <span class="card-icon">🎨</span>
+                <h3>Cultural Registration</h3>
+                <p class="card-description">Music, Debate, Arts</p>
+                <a href="https://forms.gle/zUA98Rd7z6j4vwqR6" class="btn btn-main">Register</a>
+            </div>
+
+            <div class="glass-card registration-card">
+                <span class="card-icon">📋</span>
+                <h3>Rules & Guidelines</h3>
+                <p class="card-description">Review competition rules and event details</p>
+                <a href="#" class="btn btn-ghost">View Rules</a>
+            </div>
+
+            <div class="glass-card registration-card">
+                <span class="card-icon">💳</span>
+                <h3>Payment Details</h3>
+                <p class="card-description">Registration fees and payment information</p>
+                <a href="#" class="btn btn-ghost">Payment Info</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="text-align: center;">
+        <div class="glass-card" style="max-width: 900px; margin: 0 auto; background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));">
+            <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 1.5rem;">Our Legacy</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Established on July 1, 1921, B.K. Mariappa's Hostel has provided free lodging to thousands of deserving students for over a century.</p>
+            <p style="color: var(--text-muted);">The <strong>Ashoka Sangha</strong> (Est. 1947) continues to foster excellence through annual inter-hostel competitions, keeping the spirit of community alive.</p>
+        </div>
+    </section>
+
+    <section id="contact-grid">
+        <div class="section-title">
+            <h2>Contact Coordinators</h2>
+            <p>Reach out to our team for any queries.</p>
+        </div>
+        <div class="grid">
+            <div class="glass-card coordinator-card">
+                <h3>General Secretary</h3>
+                <p class="name">Shashanka</p>
+                <a href="tel:7019458384" class="contact-btn">📞 </a>
+            </div>
+            <div class="glass-card coordinator-card">
+                <h3>Cultural Secretary</h3>
+                <p class="name">Ganesh Tharun</p>
+                <a href="tel:8431552292" class="contact-btn">📞 </a>
+            </div>
+            <div class="glass-card coordinator-card">
+                <h3>Sports Secretary</h3>
+                <p class="name">Pavan K</p>
+                <a href="tel:9606557742" class="contact-btn">📞 </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="font-size: 1.5rem; margin-bottom: 1rem;">ABHYUDAYA</div>
+                    <p class="footer-desc" >Celebrating over 100 years of excellence. Organizing premier sports and cultural events for the student community of Bengaluru.</p>
+                    <div class="social-icons">
+                        <p class="footer-desc">follow us on instagram</p>
+                        <a href="https://www.instagram.com/sbkmh_1914?utm_source=qr" class="social-icon" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Site Map</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#events">Events Schedule</a></li>
+                        <li><a href="#register">Registration</a></li>
+                        <li><a href="#about">Our History</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://drive.google.com/drive/folders/1zj8PBCBAxprU2J81wTSlA3jYLcA4bAsY?usp=drive_link">Rule Book (PDF)</a></li>
+                        <li><a href="https://drive.google.com/file/d/1nLr_yM2CuBVUkKU14LYAd5ApO8Oocwou/view?usp=drive_link">Payment Details</a></li>
+                        <li><a href="https://forms.gle/X2eGtvHsgR4ujSL66">Sports Form</a></li>
+                        <li><a href="https://forms.gle/zUA98Rd7z6j4vwqR6">Cultural Form</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">📍</div>
+                        <div>
+                            <strong>B.K. Mariappa's Hostel</strong><br>
+                            3rd main road Chamarajpet, Bengaluru<br>
+                            Karnataka, India
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">📧</div>
+                        <div>bkmariappashostel@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 B.K. Mariappa's Hostel. All rights reserved.</div>
+                <div>Designed with <span class="heart">❤</span> for Abhyudaya</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Scroll Logic
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const links = document.getElementById('navLinks');
+            links.classList.toggle('active');
+        }
+
+        // Entrance Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.glass-card, .section-title, .footer-col').forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(20px)";
+            el.style.transition = "all 0.6s ease-out";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
